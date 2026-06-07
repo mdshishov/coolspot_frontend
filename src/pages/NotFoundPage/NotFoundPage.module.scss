@@ -1,0 +1,31 @@
+.page {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+
+  font-size: 96px;
+  font-weight: 700;
+}
+
+.description {
+  margin: 0;
+
+  font-size: 18px;
+}
+
+.button {
+  padding: 12px 24px;
+
+  cursor: pointer;
+}
