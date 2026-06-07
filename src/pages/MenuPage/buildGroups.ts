@@ -14,10 +14,6 @@ function getProductPriority(product: Product): number {
   return score;
 }
 
-function compareProducts(a: Product, b: Product): number {
-  return getProductPriority(a) - getProductPriority(b);
-}
-
 export function buildGroups(
   products: Product[],
   meta: MenuMeta,
@@ -45,9 +41,6 @@ export function buildGroups(
     }
   }
 
-  /**
-   * 3. Создаём пустые группы в нужном порядке
-   */
   const groups: Record<string, ProductGroup> = {};
 
   for (const g of orderedGroups) {

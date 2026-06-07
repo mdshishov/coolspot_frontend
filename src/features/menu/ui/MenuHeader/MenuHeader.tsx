@@ -1,4 +1,4 @@
-import { MenuCategories } from "../MenuCategories/MenuCategories";
+// import { MenuCategories } from "../MenuCategories/MenuCategories";
 
 export function MenuHeader() {
   return (

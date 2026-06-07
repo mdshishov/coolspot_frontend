@@ -2,7 +2,7 @@ import { createContext, useCallback, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
 import type { ToastType, ToastItem } from "@/shared/types/toast.types";
-import { ToastContainer } from "@/shared/ui/toast/ToastContainer";
+import { ToastContainer } from "@/shared/ui/Toast/ToastContainer";
 
 type ToastContextType = {
   showSuccess: (message: string) => void;
