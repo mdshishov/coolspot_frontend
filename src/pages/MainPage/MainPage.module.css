@@ -1,0 +1,20 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--bg-sc);
+  padding: 2rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 35rem;
+  gap: 2rem;
+  padding: 4rem;
+  border-radius: 3rem;
+  background-color: var(--bg-pr);
+  box-shadow: var(--shadow);
+  text-align: left;
+}

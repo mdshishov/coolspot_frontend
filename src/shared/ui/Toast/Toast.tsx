@@ -9,14 +9,8 @@ type Props = {
 };
 
 export function Toast({ toast, onClose }: Props) {
-  const typeClass = {
-    success: styles.toastSuccess,
-    error: styles.toastError,
-    info: styles.toastInfo,
-  }[toast.type];
-
   return (
-    <div className={cn(styles.toast, typeClass)}>
+    <div className={cn(styles.toast, styles[toast.type])}>
       <div className={styles.toastContent}>{toast.message}</div>
       <button
         type="button"

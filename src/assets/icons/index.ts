@@ -1,0 +1,8 @@
+export { CloseIcon } from "./CloseIcon";
+export { CartIcon } from "./CartIcon";
+export { DeleteIcon } from "./DeleteIcon";
+export { MinusIcon } from "./MinusIcon";
+export { PlusIcon } from "./PlusIcon";
+export { ProfileIcon } from "./ProfileIcon";
+export { RightIcon } from "./RightIcon";
+export { RightLongIcon } from "./RightLongIcon";
