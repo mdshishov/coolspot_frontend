@@ -6,7 +6,7 @@ export function MainPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <h1>{"Сайт временно недоступен".toUpperCase()}</h1>
+        <h2>{"Сайт временно недоступен".toUpperCase()}</h2>
         <p>
           Ведутся работы над улучшением визуальной составляющей. Вы всё ещё
           можете воспользоваться <a href="/admin">панелью администратора</a> или{" "}
