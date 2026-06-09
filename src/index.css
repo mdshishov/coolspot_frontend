@@ -85,6 +85,7 @@ html {
 body {
   font-family: inherit;
   font-size: 1.3rem;
+  font-weight: 500;
   background-color: var(--bg-sc);
 }
 
@@ -94,6 +95,7 @@ textarea,
 select {
   font-family: inherit;
   font-size: inherit;
+  font-weight: inherit;
 }
 
 h1,
