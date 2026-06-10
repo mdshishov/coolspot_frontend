@@ -6,13 +6,13 @@ import {
   useState,
 } from "react";
 import type { ReactNode } from "react";
-import axios from "axios";
 
-import { cartApi } from "@/app/providers/cart/cart.api";
+import { cartApi } from "./cart.api";
 import { normalizeSummary } from "./cart.mapper";
 import type { SetPositionPayload } from "@/shared/types/cart.types";
 import { showApiError } from "@/shared/utils/showApiError";
 import { useToast } from "@/shared/hooks/useToast";
+import { useAuth } from "@/shared/hooks/useAuth";
 
 type CartContextType = {
   positions: Record<number, number>;
@@ -32,20 +32,21 @@ type Props = { children: ReactNode };
 
 export function CartProvider({ children }: Props) {
   const { showError } = useToast();
+  const { isAuthenticated } = useAuth();
   const [positions, setPositions] = useState<Record<number, number>>({});
   const [isInitialized, setIsInitialized] = useState(false);
 
   const refreshPositions = useCallback(async () => {
-    try {
-      const data = await cartApi.getSummary();
-      const normalizedData = normalizeSummary(data);
-      setPositions(normalizedData.positions);
-    } catch (error) {
-      if (!(axios.isAxiosError(error) && error.response?.status === 401)) {
+    if (isAuthenticated) {
+      try {
+        const data = await cartApi.getSummary();
+        const normalizedData = normalizeSummary(data);
+        setPositions(normalizedData.positions);
+      } catch (error) {
         showApiError(error, showError);
       }
     }
-  }, []);
+  }, [isAuthenticated, showError]);
 
   useEffect(() => {
     const init = async () => {

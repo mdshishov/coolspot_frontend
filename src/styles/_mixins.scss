@@ -1,0 +1,53 @@
+@use "./variables" as v;
+
+@mixin control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+
+  height: 4rem;
+  padding: 0 2rem;
+  border: none;
+  border-radius: 20px;
+
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    transform: translateY(-0.2rem);
+    z-index: 100;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  span {
+    margin-top: 0.1rem;
+  }
+
+  svg {
+    height: 1.4rem;
+  }
+}
+
+@mixin controlPrimary {
+  background-color: v.$accent;
+  color: v.$text-bt;
+}
+
+@mixin controlSecondary {
+  background-color: transparent;
+  color: v.$text-pr;
+  border: 1px solid v.$border;
+}

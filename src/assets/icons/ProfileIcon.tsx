@@ -13,8 +13,8 @@ export function ProfileIcon(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M7 0C9.20914 0 11 1.79086 11 4C11 6.20914 9.20914 8 7 8C4.79086 8 3 6.20914 3 4C3 1.79086 4.79086 0 7 0ZM7 1.5C5.61929 1.5 4.5 2.61929 4.5 4C4.5 5.38071 5.61929 6.5 7 6.5C8.38071 6.5 9.5 5.38071 9.5 4C9.5 2.61929 8.38071 1.5 7 1.5Z"
         fill="currentColor"
       />

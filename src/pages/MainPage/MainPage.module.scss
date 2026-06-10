@@ -1,10 +1,10 @@
+@use "@/styles/variables" as v;
+
 .page {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: var(--bg-sc);
-  padding: 2rem;
 }
 .container {
   display: flex;
@@ -13,8 +13,8 @@
   width: 35rem;
   gap: 2rem;
   padding: 4rem;
-  border-radius: 3rem;
-  background-color: var(--bg-pr);
-  box-shadow: var(--shadow);
+  border-radius: 4rem;
+  background-color: v.$bg-pr;
+  box-shadow: v.$shadow;
   text-align: left;
 }

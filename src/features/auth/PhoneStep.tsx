@@ -1,7 +1,7 @@
 import { IMaskInput } from "react-imask";
 
 import type { PhoneStepProps } from "./auth.types";
-import { FormFieldError } from "@/shared/ui/forms/FormFieldError";
+import { FormFieldError } from "@/shared/ui/FormField/FormFieldError";
 import { isPhoneComplete } from "./phone.utils";
 
 export function PhoneStep({

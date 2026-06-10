@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import type { RegisterStepProps } from "./auth.types";
 import type { AuthFormErrors } from "@/shared/types/api.types";
-import { FormFieldError } from "@/shared/ui/forms/FormFieldError";
+import { FormFieldError } from "@/shared/ui/FormField/FormFieldError";
 import { getValidationErrors } from "@/shared/utils/getValidationErrors";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { useToast } from "@/shared/hooks/useToast";

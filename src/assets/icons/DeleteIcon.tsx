@@ -13,8 +13,8 @@ export function DeleteIcon(props: SVGProps<SVGSVGElement>) {
         fill="currentColor"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M8.25 0C9.35457 0 10.25 0.895431 10.25 2H13.5V3.5H0.5V2H3.75C3.75 0.895431 4.64543 4.0266e-08 5.75 0H8.25ZM5.75 1.5C5.47386 1.5 5.25 1.72386 5.25 2H8.75C8.75 1.72386 8.52614 1.5 8.25 1.5H5.75Z"
         fill="currentColor"
       />

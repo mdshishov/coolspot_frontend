@@ -1,24 +1,39 @@
-import type { ButtonHTMLAttributes } from "react";
-import { clsx as cn } from "clsx";
+import { clsx } from "clsx";
+
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import styles from "./Button.module.scss";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary";
+  text?: string;
+  rightIcon?: ReactNode;
+  leftIcon?: ReactNode;
 };
 
 export function Button({
   variant = "primary",
+  text,
+  rightIcon,
+  leftIcon,
   children,
   className = "",
+  type = "button",
   ...props
 }: ButtonProps) {
+  const ClassName = clsx(
+    styles.button,
+    styles[variant],
+    !text && styles.onlyIcon,
+    className,
+  );
+
   return (
-    <button
-      className={cn(styles.button, styles[variant], className)}
-      {...props}
-    >
+    <button className={ClassName} type={type} {...props}>
+      {leftIcon}
+      {text && <span>{text}</span>}
       {children}
+      {rightIcon}
     </button>
   );
 }

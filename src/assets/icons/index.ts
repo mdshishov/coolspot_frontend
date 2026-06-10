@@ -6,3 +6,6 @@ export { PlusIcon } from "./PlusIcon";
 export { ProfileIcon } from "./ProfileIcon";
 export { RightIcon } from "./RightIcon";
 export { RightLongIcon } from "./RightLongIcon";
+export { CloseSmallIcon } from "./CloseSmallIcon";
+export { WarningIcon } from "./WarningIcon";
+export { Logo } from "./Logo";

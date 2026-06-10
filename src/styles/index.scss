@@ -1,15 +1,5 @@
-:root {
-  --accent: #013ff6;
-  --error: #f20732;
-  --text-pr: #000000;
-  --text-sc: #808080;
-  --text-bt: #ffffff;
-  --bg-pr: #ffffff;
-  --bg-sc: #f0f0f0;
-  --border: #d9d9d9;
-  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  --shadow-sm: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.1);
-}
+@use "./breakpoints" as *;
+@use "./variables" as v;
 
 @font-face {
   font-family: "Manrope";
@@ -86,7 +76,7 @@ body {
   font-family: inherit;
   font-size: 1.3rem;
   font-weight: 500;
-  background-color: var(--bg-sc);
+  background-color: v.$bg-sc;
 }
 
 button,
@@ -114,23 +104,30 @@ h2 {
 
 p {
   font-size: 1.3rem;
-  line-height: 1.6rem;
+  line-height: 1.2em;
 }
 
 a {
   text-decoration: none;
-  color: var(--accent);
+  color: v.$accent;
 }
 a:hover {
   text-decoration: underline;
 }
 
 #root {
-  width: 1126px;
+  width: 1070px;
   max-width: 100%;
   margin: 0 auto;
+  padding: 0 2rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+}
+
+@media (max-width: $mobile) {
+  #root {
+    padding: 0;
+  }
 }
