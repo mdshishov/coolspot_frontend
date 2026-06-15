@@ -17,3 +17,7 @@
 .secondary {
   @include m.controlSecondary;
 }
+
+.border {
+  @include m.controlBorder;
+}

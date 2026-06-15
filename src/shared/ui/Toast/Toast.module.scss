@@ -44,19 +44,6 @@
   }
 }
 
-.toastClosing {
-  animation: toastExit 0.3s ease-in forwards;
-  background: green;
-}
-@keyframes toastExit {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
 .success {
   background: v.$accent;
 }
@@ -74,7 +61,7 @@
 }
 
 .toastText {
-  margin-top: 1px;
+  margin-top: 0.1rem;
   flex: 1;
   line-height: 1.2em;
 }
@@ -93,11 +80,11 @@
   border: none;
   border-radius: 1.2rem;
   background: rgba(255, 255, 255, 0.25);
-  transition: background 0.2s ease;
+  transition: transform 0.1s ease;
   cursor: pointer;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-0.2rem);
   }
 }
 

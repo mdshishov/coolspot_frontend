@@ -2,19 +2,21 @@ import { useState } from "react";
 import { clsx } from "clsx";
 
 import styles from "./Header.module.scss";
-// import { useAuth } from "@/shared/hooks/useAuth";
+import { useAuth } from "@/shared/hooks/useAuth";
 // import { useCart } from "@/shared/hooks/useCart";
+import { useAuthModal } from "@/shared/hooks/useAuthModal";
 import { useScrolled } from "@/shared/hooks/useScrolled";
-import { Logo, ProfileIcon } from "@/assets/icons";
+import { CartIcon, Logo, ProfileIcon } from "@/assets/icons";
 import { NavLink } from "react-router-dom";
 import { MenuIcon } from "@/assets/icons/MenuIcon";
 import { SearchIcon } from "@/assets/icons/SearchIcon";
 
 export function Header() {
-  // const authState = useAuth();
+  const { isInitialized, isAuthenticated } = useAuth();
   // const cartState = useCart();
   const isScrolled = useScrolled();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { open } = useAuthModal();
 
   return (
     <header className={clsx(styles.header, isScrolled && styles.scrolled)}>
@@ -42,13 +44,22 @@ export function Header() {
         <button className={styles.search}>
           <SearchIcon className={styles.icon} />
         </button>
-        <button
-          className={styles.login}
-          // onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <ProfileIcon className={styles.icon} />
-          <span>Войти</span>
-        </button>
+        {isAuthenticated && (
+          <>
+            <NavLink to="/cart" className={styles.link}>
+              <CartIcon className={styles.icon} />
+            </NavLink>
+            <NavLink to="/profile" className={styles.link}>
+              <ProfileIcon className={styles.icon} />
+            </NavLink>
+          </>
+        )}
+        {isInitialized && !isAuthenticated && (
+          <button className={styles.login} onClick={open}>
+            <ProfileIcon className={styles.icon} />
+            <span>Войти</span>
+          </button>
+        )}
       </div>
 
       {/* {isMenuOpen && (

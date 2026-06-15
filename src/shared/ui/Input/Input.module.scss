@@ -1,0 +1,91 @@
+@use "@/styles/variables" as v;
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.inputWrapper {
+  position: relative;
+
+  &.error {
+    .input {
+      border-color: v.$error !important;
+    }
+
+    .label {
+      color: v.$error !important;
+    }
+  }
+}
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0 calc(2rem - 1px);
+  height: 4rem;
+  border-radius: 2rem;
+  border: 1px solid v.$border;
+  font-size: 1.3rem;
+  line-height: 1;
+  outline: none;
+
+  transition: border-color 0.2s ease;
+
+  &.rightActive {
+    padding-right: calc(5rem - 1px);
+  }
+
+  &:focus {
+    border-color: v.$accent;
+  }
+}
+
+.label {
+  position: absolute;
+  left: calc(1.7rem - 1px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: v.$text-sc;
+  pointer-events: none;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  line-height: 1;
+
+  transition:
+    top 0.2s ease,
+    color 0.2s ease,
+    font-size 0.1s ease,
+    transform 0.1s ease;
+
+  background: v.$bg-pr;
+
+  &.floating {
+    top: 0;
+    transform: translateY(calc(-50% - 0.1rem));
+    font-size: 1.1rem;
+    color: v.$text-sc;
+  }
+
+  &.focused {
+    color: v.$accent;
+  }
+}
+
+.errors {
+  line-height: 1;
+  margin-top: 0.3rem;
+  color: v.$error;
+  font-size: 1.1rem;
+}
+
+.rightSlot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4rem;
+  height: 4rem;
+  display: block;
+}

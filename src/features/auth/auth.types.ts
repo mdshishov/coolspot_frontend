@@ -3,20 +3,17 @@ export type AuthStep = "phone" | "login" | "register";
 export interface PhoneStepProps {
   phone: string;
   loading: boolean;
-  errors?: string[];
   onChange: (value: string) => void;
   onSubmit: () => void;
 }
 
 export interface LoginStepProps {
   phone: string;
-  onBack: () => void;
   onSuccess: () => void;
 }
 
 export interface RegisterStepProps {
   phone: string;
-  onBack: () => void;
   onSuccess: () => void;
 }
 

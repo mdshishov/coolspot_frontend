@@ -2,34 +2,30 @@ import { useState } from "react";
 
 import { authApi } from "@/app/providers/auth/auth.api";
 import type { AuthStep } from "./auth.types";
-import type { AuthFormErrors } from "@/shared/types/api.types";
-import { getValidationErrors } from "@/shared/utils/getValidationErrors";
 import { useToast } from "@/shared/hooks/useToast";
 import { showApiError } from "@/shared/utils/showApiError";
-
 import { PhoneStep } from "./PhoneStep";
 import { LoginStep } from "./LoginStep";
 import { RegisterStep } from "./RegisterStep";
+import { Overlay } from "@/shared/ui/Overlay/Overlay";
+import { LeftIcon } from "@/assets/icons";
+import { formatPhone } from "./phone.utils";
+
+import styles from "./Auth.module.scss";
 
 type Props = {
-  isOpen: boolean;
   onClose: () => void;
+  onRegisterSuccess: () => void;
 };
 
-export function AuthModal({ isOpen, onClose }: Props) {
-  const { showError } = useToast();
+export function AuthModal({ onClose, onRegisterSuccess }: Props) {
+  const { showError, showSuccess } = useToast();
   const [step, setStep] = useState<AuthStep>("phone");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<AuthFormErrors>({});
-
-  if (!isOpen) {
-    return null;
-  }
 
   const handlePhoneSubmit = async () => {
     try {
-      setErrors({});
       setLoading(true);
 
       const result = await authApi.checkPhone(phone);
@@ -40,12 +36,6 @@ export function AuthModal({ isOpen, onClose }: Props) {
 
       setStep("register");
     } catch (error) {
-      const validationErrors = getValidationErrors(error);
-      if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
-        return;
-      }
-
       showApiError(error, showError);
     } finally {
       setLoading(false);
@@ -55,52 +45,74 @@ export function AuthModal({ isOpen, onClose }: Props) {
   const handleClose = () => {
     setStep("phone");
     setPhone("");
-    setErrors({});
     onClose();
   };
+  const handleRegisterSuccess = () => {
+    handleClose();
+    onRegisterSuccess();
+  };
+  const handleLoginSuccess = () => {
+    handleClose();
+    showSuccess("Вы вошли в аккаунт.");
+  };
+
+  const backBtn = (
+    <button className={styles.backBtn} onClick={() => setStep("phone")}>
+      <LeftIcon />
+      <span>Назад</span>
+    </button>
+  );
 
   return (
-    <div className="modal-overlay" onClick={handleClose}>
-      <div
-        className="modal-content"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <button type="button" onClick={handleClose}>
-          ×
-        </button>
-
+    <Overlay onClose={handleClose}>
+      <div className={styles.content}>
         {step === "phone" && (
-          <PhoneStep
-            phone={phone}
-            loading={loading}
-            errors={errors.phone}
-            onChange={setPhone}
-            onSubmit={handlePhoneSubmit}
-          />
+          <>
+            <h2 className={styles.title}>Вход или регистрация</h2>
+            <PhoneStep
+              phone={phone}
+              loading={loading}
+              onChange={setPhone}
+              onSubmit={handlePhoneSubmit}
+            />
+          </>
         )}
 
         {step === "login" && (
-          <LoginStep
-            phone={phone}
-            onBack={() => {
-              setErrors({});
-              setStep("phone");
-            }}
-            onSuccess={handleClose}
-          />
+          <>
+            <div>
+              <h2 className={styles.title}>Вход</h2>
+              {backBtn}
+              <p className={styles.tooltip}>
+                Введте пароль для номера{" "}
+                <span className={styles.tooltipAccent}>
+                  {formatPhone(phone)}
+                </span>
+                {"."}
+              </p>
+            </div>
+            <LoginStep phone={phone} onSuccess={handleLoginSuccess} />
+          </>
         )}
 
         {step === "register" && (
-          <RegisterStep
-            phone={phone}
-            onBack={() => {
-              setErrors({});
-              setStep("phone");
-            }}
-            onSuccess={handleClose}
-          />
+          <>
+            <div>
+              <h2 className={styles.title}>Регистрация</h2>
+              {backBtn}
+              <p className={styles.tooltip}>
+                Похоже, для номера{" "}
+                <span className={styles.tooltipAccent}>
+                  {formatPhone(phone)}
+                </span>{" "}
+                ещё нет аккаунта. Заполните поля ниже, чтобы завершить
+                регистрацию.
+              </p>
+            </div>
+            <RegisterStep phone={phone} onSuccess={handleRegisterSuccess} />
+          </>
         )}
       </div>
-    </div>
+    </Overlay>
   );
 }

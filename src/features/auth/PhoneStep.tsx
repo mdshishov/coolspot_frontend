@@ -1,34 +1,45 @@
-import { IMaskInput } from "react-imask";
+import { clsx } from "clsx";
 
 import type { PhoneStepProps } from "./auth.types";
-import { FormFieldError } from "@/shared/ui/FormField/FormFieldError";
 import { isPhoneComplete } from "./phone.utils";
+import { PhoneInput } from "@/shared/ui/PhoneInput/PhoneInput";
+import { Button } from "@/shared/ui/Button/Button";
+import { RightLongIcon } from "@/assets/icons";
+
+import styles from "./Auth.module.scss";
 
 export function PhoneStep({
   phone,
   loading,
-  errors,
   onChange,
   onSubmit,
 }: PhoneStepProps) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
+
   return (
-    <div>
-      <h2>Вход или регистрация</h2>
-
-      <IMaskInput
-        mask="{+7} 000 000-00-00"
+    <form
+      onSubmit={handleSubmit}
+      className={clsx(styles.form, styles.phoneForm)}
+    >
+      <PhoneInput
+        autoFocus
+        label="Телефон"
         value={phone}
-        onAccept={(value) => onChange(String(value))}
-      />
-      <FormFieldError errors={errors} />
+        onChange={onChange}
+        name="phone"
+      ></PhoneInput>
 
-      <button
-        type="button"
-        disabled={!isPhoneComplete(phone) || loading}
-        onClick={onSubmit}
-      >
-        Продолжить
-      </button>
-    </div>
+      <Button
+        variant="primary"
+        type="submit"
+        text="Продолжить"
+        rightIcon={<RightLongIcon />}
+        loading={loading}
+        disabled={!isPhoneComplete(phone)}
+      />
+    </form>
   );
 }

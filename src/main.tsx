@@ -8,6 +8,7 @@ import { setupInterceptors } from "./app/api/setupInterceptors";
 import { AuthProvider } from "./app/providers/auth/AuthProvider.tsx";
 import { ToastProvider } from "./app/providers/toast/ToastProvider.tsx";
 import { CartProvider } from "./app/providers/cart/CartProvider.tsx";
+import { AuthModalProvider } from "./app/providers/auth-modal/AuthModalProvider.tsx";
 
 setupInterceptors();
 
@@ -15,9 +16,11 @@ createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <ToastProvider>
       <AuthProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
+        <AuthModalProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </AuthModalProvider>
       </AuthProvider>
     </ToastProvider>
   </BrowserRouter>,

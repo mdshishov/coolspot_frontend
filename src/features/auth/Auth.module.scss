@@ -1,0 +1,66 @@
+@use "@/styles/breakpoints" as *;
+@use "@/styles/variables" as v;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  border-radius: 4rem;
+  padding: 4rem;
+  background-color: v.$bg-pr;
+  box-shadow: v.$shadow;
+  max-width: 35rem;
+  width: 100%;
+}
+
+.title {
+  padding-right: 3rem;
+}
+
+.tooltip {
+  margin-top: 2rem;
+
+  .tooltipAccent {
+    font-weight: 700;
+    color: v.$accent;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: v.$accent;
+  background: none;
+  border: none;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+
+  &:hover {
+    transform: translateY(-0.2rem);
+  }
+
+  svg {
+    height: 1.4rem;
+  }
+
+  span {
+    margin-top: 0.1rem;
+    line-height: 1;
+  }
+}
+
+@media (max-width: $mobile) {
+  .content {
+    max-width: 100%;
+    border-radius: 4rem 4rem 0 0;
+  }
+}

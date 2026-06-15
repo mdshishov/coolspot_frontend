@@ -5,15 +5,27 @@ import type { LoginStepProps } from "./auth.types";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { showApiError } from "@/shared/utils/showApiError";
 import { useToast } from "@/shared/hooks/useToast";
+import { PasswordInput } from "@/shared/ui/PasswordInput/PasswordInput";
+import { Button } from "@/shared/ui/Button/Button";
 
-export function LoginStep({ phone, onBack, onSuccess }: LoginStepProps) {
+import styles from "./Auth.module.scss";
+
+export function LoginStep({ phone, onSuccess }: LoginStepProps) {
   const { login } = useAuth();
   const { showError } = useToast();
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
-  const handleSubmit = async () => {
+  const validatePassword = (value: string): string => {
+    if (!value.trim()) return "Заполните поле";
+    return "";
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validatePassword(password)) return;
+
     try {
       setPasswordError("");
       setLoading(true);
@@ -31,21 +43,26 @@ export function LoginStep({ phone, onBack, onSuccess }: LoginStepProps) {
   };
 
   return (
-    <div>
-      <button onClick={onBack}>Назад</button>
-      <h2>Вход</h2>
-
-      <p>{phone}</p>
-      <input
-        type="password"
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <PasswordInput
+        autoFocus
         value={password}
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      {passwordError && <p>{passwordError}</p>}
+        label="Пароль"
+        errors={passwordError}
+        onChange={(event) => {
+          const password = event.target.value;
+          setPassword(password);
+          if (passwordError) setPasswordError(validatePassword(password));
+        }}
+        onBlur={() => setPasswordError(validatePassword(password))}
+      ></PasswordInput>
 
-      <button disabled={loading} onClick={handleSubmit}>
-        Войти
-      </button>
-    </div>
+      <Button
+        variant="primary"
+        type="submit"
+        text="Войти в аккаунт"
+        loading={loading}
+      />
+    </form>
   );
 }

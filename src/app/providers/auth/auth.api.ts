@@ -10,16 +10,15 @@ import type {
 
 export const authApi = {
   async checkPhone(phone: string): Promise<CheckPhoneResponse> {
-    const response = await api.post<CheckPhoneResponse>(
-      "/api/auth/check-phone",
-      { phone },
-    );
+    const response = await api.post<CheckPhoneResponse>("/auth/check-phone/", {
+      phone,
+    });
     return response.data;
   },
 
-  async login(phone: string, password: string): Promise<LoginResponse> {
-    const response = await api.post<LoginResponse>("/api/auth/login", {
-      phone,
+  async login(username: string, password: string): Promise<LoginResponse> {
+    const response = await api.post<LoginResponse>("/auth/login/", {
+      username,
       password,
     });
     return response.data;
@@ -27,14 +26,14 @@ export const authApi = {
 
   async register(payload: RegisterRequest): Promise<RegisterResponse> {
     const response = await api.post<RegisterResponse>(
-      "/api/auth/register",
+      "/auth/register/",
       payload,
     );
     return response.data;
   },
 
   async refresh(refresh: string): Promise<RefreshResponse> {
-    const response = await api.post<RefreshResponse>("/api/auth/refresh", {
+    const response = await api.post<RefreshResponse>("/auth/refresh/", {
       refresh,
     });
     return response.data;

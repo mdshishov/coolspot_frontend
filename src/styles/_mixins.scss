@@ -9,7 +9,7 @@
   height: 4rem;
   padding: 0 2rem;
   border: none;
-  border-radius: 20px;
+  border-radius: 2rem;
 
   font-size: 1.3rem;
   font-weight: 700;
@@ -21,7 +21,8 @@
 
   transition:
     color 0.2s ease,
-    transform 0.1s ease;
+    transform 0.1s ease,
+    opacity 0.2s ease;
 
   &:hover {
     transform: translateY(-0.2rem);
@@ -30,6 +31,11 @@
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 
   span {
@@ -47,7 +53,13 @@
 }
 
 @mixin controlSecondary {
+  background-color: v.$bg-sc-btn;
+  color: v.$text-pr;
+}
+
+@mixin controlBorder {
   background-color: transparent;
   color: v.$text-pr;
   border: 1px solid v.$border;
+  padding: 0 calc(2rem - 1px);
 }

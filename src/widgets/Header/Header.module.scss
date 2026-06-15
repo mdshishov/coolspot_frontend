@@ -40,6 +40,9 @@
   text-decoration: none !important;
   font-weight: 700;
   color: v.$text-pr;
+  border: none;
+  background: none;
+  cursor: pointer;
   transition:
     color 0.2s ease,
     transform 0.1s ease;
@@ -48,6 +51,14 @@
     color: v.$accent;
     transform: translateY(-0.2rem);
   }
+}
+
+.burger {
+  display: none;
+}
+
+.icon {
+  height: 1.4rem;
 }
 
 .nav {
@@ -60,22 +71,6 @@
   display: flex;
   height: 100%;
   justify-self: end;
-}
-
-.burger,
-.search {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding-left: 1.5rem;
-}
-
-.burger {
-  display: none;
-}
-
-.icon {
-  height: 1.4rem;
 }
 
 .login {
@@ -105,7 +100,7 @@
 @media (max-width: $mobile) {
   .header {
     border-radius: 0;
-    padding: 0;
+    padding: 0 0.5rem;
   }
   .desktopNav {
     display: none;
@@ -113,5 +108,6 @@
 
   .burger {
     display: inline-flex;
+    justify-self: start;
   }
 }

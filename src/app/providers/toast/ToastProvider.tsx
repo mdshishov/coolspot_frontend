@@ -10,7 +10,9 @@ type ToastContextType = {
   showInfo: (message: string) => void;
 };
 
-export const ToastContext = createContext({} as ToastContextType);
+export const ToastContext = createContext<ToastContextType>(
+  {} as ToastContextType,
+);
 
 type Props = { children: ReactNode };
 
