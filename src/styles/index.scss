@@ -59,7 +59,7 @@
 
 html {
   font-family: "Manrope", system-ui, sans-serif;
-  font-size: clamp(50%, calc(2vw), 62.5%);
+  font-size: clamp(45%, calc(2vw), 62.5%);
   line-height: 1;
   -webkit-text-size-adjust: 100%;
 }
@@ -78,6 +78,7 @@ body {
   font-size: 1.3rem;
   font-weight: 500;
   background-color: v.$bg-sc;
+  overflow-x: hidden;
 }
 
 button,
@@ -103,6 +104,9 @@ h1 {
 h2 {
   font-size: 3rem;
 }
+h3 {
+  font-size: 1.8rem;
+}
 
 p {
   font-size: 1.3rem;
@@ -115,6 +119,26 @@ a {
 }
 a:hover {
   text-decoration: underline;
+}
+
+html,
+* {
+  scrollbar-width: thin;
+  scrollbar-color: v.$border transparent;
+}
+
+*::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 4px;
+}
+*::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background: v.$border;
+  border-radius: 10px;
+}
+*::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 #root {

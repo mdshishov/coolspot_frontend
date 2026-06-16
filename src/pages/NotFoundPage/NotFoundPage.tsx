@@ -17,16 +17,15 @@ export const NotFoundPage = () => {
     <>
       <Header />
       <main className={styles.main}>
-        <div className={styles.container}>
-          <h2 className={styles.title}>Не удалось найти страницу</h2>
+        <h2 className={styles.title}>Не удалось найти страницу</h2>
 
-          <Button
-            variant="primary"
-            text="На главную"
-            leftIcon={<LeftLongIcon />}
-            onClick={() => navigate("/")}
-          />
-        </div>
+        <Button
+          variant="primary"
+          text="На главную"
+          leftIcon={<LeftLongIcon />}
+          onClick={() => navigate("/")}
+          className={styles.btn}
+        />
       </main>
     </>
   );

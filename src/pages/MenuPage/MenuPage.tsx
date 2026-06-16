@@ -12,6 +12,8 @@ import { MenuLinks } from "@/widgets/MenuLinks/MenuLinks";
 import { buildMenuLinks } from "@/features/menu/model/buildMenuLinks";
 import { MenuLinksSkeleton } from "@/widgets/MenuLinks/MenuLinksSkeleton";
 
+import styles from "./MenuPage.module.scss";
+
 export function MenuPage() {
   useEffect(() => {
     document.title = "Меню | CoolSpot";
@@ -27,7 +29,9 @@ export function MenuPage() {
         <Header>
           <MenuLinksSkeleton />
         </Header>
-        <ProductsGrid groups={[]} loading={true}></ProductsGrid>
+        <main className={styles.main}>
+          <ProductsGrid groups={[]} loading={true}></ProductsGrid>
+        </main>
       </>
     );
   }
@@ -45,7 +49,9 @@ export function MenuPage() {
         <Header>
           <MenuLinks items={buildMenuLinks(menuMeta.meta!)} />
         </Header>
-        <ProductsGrid groups={[]} loading={true}></ProductsGrid>
+        <main className={styles.main}>
+          <ProductsGrid groups={[]} loading={true}></ProductsGrid>
+        </main>
       </>
     );
   }
@@ -61,7 +67,9 @@ export function MenuPage() {
       <Header>
         <MenuLinks items={buildMenuLinks(menuMeta.meta!)} />
       </Header>
-      <ProductsGrid groups={groups}></ProductsGrid>
+      <main className={styles.main}>
+        <ProductsGrid groups={groups}></ProductsGrid>
+      </main>
     </>
   );
 }

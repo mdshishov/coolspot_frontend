@@ -1,0 +1,45 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 0;
+}
+
+.messageContainer {
+  margin: 0 3rem;
+
+  .messageTitle {
+    margin-bottom: 2rem;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 30rem;
+  gap: 2rem;
+}
+
+.summary {
+  position: sticky;
+  top: 9rem;
+  align-self: start;
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin: 2rem 0rem;
+  }
+  .content {
+    grid-template-columns: 1fr;
+  }
+  .list {
+    margin: 0 2rem;
+  }
+
+  .summary {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

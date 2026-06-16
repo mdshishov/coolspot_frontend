@@ -9,6 +9,7 @@ type Props = {
   maxValue: number;
   isAvialable?: boolean;
   className?: string;
+  price?: number;
   onAdd: () => void;
   onIncrease: () => void;
   onDecrease: () => void;
@@ -19,6 +20,7 @@ export function AddToCartButton({
   maxValue,
   isAvialable = true,
   className = "",
+  price,
   onAdd,
   onIncrease,
   onDecrease,
@@ -28,13 +30,19 @@ export function AddToCartButton({
       <div className={clsx(styles.unavialable, className)}>Нет в наличии</div>
     );
 
+  const priceStr =
+    price === undefined || price === null
+      ? ""
+      : `  ·  ${(price * (value || 1)).toLocaleString("ru-RU")} ₽`;
+  const unitPriceStr = priceStr ? ` шт.${priceStr}` : "";
+
   if (value === 0)
     return (
       <Button
-        text="Добавить"
+        text={`Добавить${priceStr}`}
         leftIcon={<CartIcon />}
         onClick={onAdd}
-        className={className}
+        className={clsx(styles.addBtn, className)}
       />
     );
 
@@ -43,7 +51,7 @@ export function AddToCartButton({
       <button type="button" className={styles.actionBtn} onClick={onDecrease}>
         <MinusIcon />
       </button>
-      <span className={styles.value}>{value}</span>
+      <span className={styles.value}>{`${value}${unitPriceStr}`}</span>
       <button
         type="button"
         className={styles.actionBtn}

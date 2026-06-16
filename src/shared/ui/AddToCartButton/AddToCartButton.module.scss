@@ -10,7 +10,7 @@
 
 .counter {
   @include m.control;
-  @include m.controlBorder;
+  @include m.controlSecondary;
   cursor: auto;
   justify-content: space-between;
   padding: 0;
@@ -24,14 +24,35 @@
   pointer-events: none;
 }
 
+.addBtn {
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background-color: v.$text-pr;
+    transform: translateY(0);
+  }
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
 .actionBtn {
   @include m.control;
   @include m.controlTab;
   background: none;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 
   &:disabled {
     opacity: 1;
     color: v.$border;
+  }
+
+  &:hover {
+    transform: translateY(0);
+  }
+  &:active {
+    transform: scale(0.9);
   }
 }

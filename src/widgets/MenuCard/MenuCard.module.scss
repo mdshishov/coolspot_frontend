@@ -1,4 +1,5 @@
 @use "@/styles/variables" as v;
+@use "@/styles/breakpoints" as *;
 @use "@/styles/mixins" as m;
 
 .card {
@@ -66,8 +67,6 @@
   flex-grow: 1;
 
   .title {
-    font-weight: 700;
-    font-size: 1.8rem;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     line-clamp: 3;
@@ -132,5 +131,16 @@
     @include m.skeleton-bg;
     height: 4rem;
     border-radius: 2rem;
+  }
+}
+
+@media (max-width: $mobile) {
+  .card {
+    width: 22rem;
+  }
+
+  .image {
+    width: 18rem;
+    height: 18rem;
   }
 }

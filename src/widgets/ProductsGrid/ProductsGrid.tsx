@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import type { Product } from "@/shared/types/product.types";
-import type { ProductGroup } from "@/pages/MenuPage/types";
+import type { ProductGroup } from "@/features/menu/model/menu.types";
 
 import { MenuCard } from "../MenuCard/MenuCard";
 
@@ -78,6 +78,7 @@ export function ProductsGrid({
             variant={active === tab.slug ? "primary" : "tab"}
             onClick={() => setActive(tab.slug)}
             text={tab.title}
+            className={styles.tab}
           />
         ))}
       </nav>

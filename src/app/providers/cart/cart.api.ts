@@ -1,5 +1,6 @@
 import { api } from "../../api/axios";
 import type {
+  CartResponse,
   CartSummary,
   SetPositionPayload,
   SetPositionResponse,
@@ -16,6 +17,11 @@ export const cartApi = {
       "/cart/set-position/",
       payload,
     );
+    return response.data;
+  },
+
+  async getCart(): Promise<CartResponse> {
+    const response = await api.get<CartResponse>("/cart/");
     return response.data;
   },
 };
