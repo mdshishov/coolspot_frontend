@@ -1,0 +1,167 @@
+@use "@/styles/variables" as v;
+
+.card {
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  position: relative;
+  height: 14rem;
+}
+
+.changedTag {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  border-radius: 1rem;
+  padding: 0 0.8rem 0.1rem 0.8rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: v.$text-bt;
+  background-color: v.$error;
+}
+
+.image {
+  border-radius: 2rem;
+  width: 10rem;
+  height: 10rem;
+  flex-shrink: 0;
+
+  svg {
+    height: 6rem;
+  }
+}
+
+.titleSection {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  hyphens: auto;
+  word-break: break-word;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: v.$accent;
+  }
+}
+
+.addBtn {
+  width: 15rem;
+}
+
+.weight {
+  color: v.$text-sc;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.priceInfo {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .finalPrice {
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  .discount {
+    font-weight: 700;
+    color: v.$accent;
+    margin-top: 0.5rem;
+  }
+  .basePrice {
+    color: v.$text-sc;
+    text-decoration: line-through;
+  }
+}
+
+.outcomeText {
+  color: v.$text-sc;
+  margin-bottom: 0.5rem;
+}
+.outcomePrice {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.checkboxLabel {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+
+  display: flex;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+
+  &:has(.checkbox:disabled) {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: inherit;
+}
+
+.checkboxCustom {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  background: v.$bg-sc-btn;
+  transition: background 0.2s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    width: 0.8rem;
+    height: 1.2rem;
+    border-right: 0.2rem solid v.$text-bt;
+    border-bottom: 0.2rem solid v.$text-bt;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    transition: transform 0.15s ease;
+  }
+}
+
+.checkbox:checked + .checkboxCustom {
+  background: v.$accent;
+
+  &::after {
+    transform: translate(-50%, -55%) rotate(45deg) scale(1);
+  }
+}
+
+.checkbox:not(:disabled):hover + .checkboxCustom {
+  background-color: v.$text-pr;
+}

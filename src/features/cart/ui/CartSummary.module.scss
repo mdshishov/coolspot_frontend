@@ -1,0 +1,44 @@
+@use "@/styles/variables" as v;
+@use "@/styles/breakpoints" as *;
+
+.content {
+  padding: 2rem;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 2rem;
+  background-color: v.$bg-pr;
+  border-radius: 3rem;
+}
+
+.valGroup,
+.outcomeGroup {
+  display: flex;
+  justify-content: space-between;
+}
+
+.valGroup {
+  &:first-child {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.basePrice {
+  font-weight: 700;
+}
+.discount {
+  font-weight: 700;
+  color: v.$accent;
+}
+
+.outcomeGroup {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: $tablet) {
+  .content {
+    box-shadow: v.$shadow2;
+    border-radius: 3rem 3rem 0 0;
+  }
+}

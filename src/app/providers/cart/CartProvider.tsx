@@ -8,11 +8,7 @@ import {
 import type { ReactNode } from "react";
 
 import { cartApi } from "./cart.api";
-import {
-  normalizeSetResponse,
-  normalizeSummary,
-  normalizeWarnings,
-} from "./cart.mapper";
+import { normalizeWarnings } from "./cart.mapper";
 import type {
   CartResponse,
   CartWarning,
@@ -42,6 +38,7 @@ type CartContextType = {
   warnings: Record<number, CartWarning>;
   isInitialized: boolean;
   isUpdating: boolean;
+  loading: boolean;
 
   getProductQuantity: (dishId: number) => number;
   setQuantity: (
@@ -70,6 +67,7 @@ export function CartProvider({ children }: Props) {
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [totalDishes, setTotalDishes] = useState(0);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated) return;
@@ -111,26 +109,47 @@ export function CartProvider({ children }: Props) {
   }, []);
 
   const refreshCart = useCallback(async () => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) {
+      setLoading(false);
+      return;
+    }
+
     try {
+      setLoading(true);
+
       const data = await cartApi.getCart();
+
       applyCart(data);
     } catch (error) {
       showApiError(error, showError);
+    } finally {
+      setLoading(false);
     }
   }, [applyCart, isAuthenticated, showError]);
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      setIsInitialized(true);
+      return;
+    }
+
+    let mounted = true;
     const init = async () => {
       try {
+        setIsInitialized(false);
         await refreshCart();
       } finally {
-        setIsInitialized(true);
+        if (mounted) {
+          setIsInitialized(true);
+        }
       }
     };
-
     init();
-  }, [refreshCart]);
+
+    return () => {
+      mounted = false;
+    };
+  }, [isAuthenticated, refreshCart]);
 
   const refreshPositions = useCallback(async () => {
     await refreshCart();
@@ -191,6 +210,7 @@ export function CartProvider({ children }: Props) {
       warnings,
       isInitialized,
       isUpdating,
+      loading,
 
       setQuantity,
       setSelected,
@@ -206,6 +226,7 @@ export function CartProvider({ children }: Props) {
       warnings,
       isInitialized,
       isUpdating,
+      loading,
 
       setQuantity,
       setSelected,

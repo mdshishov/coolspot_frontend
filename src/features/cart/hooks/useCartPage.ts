@@ -2,11 +2,17 @@ import { useCart } from "@/shared/hooks/useCart";
 import { useMemo } from "react";
 
 export function useCartPage() {
-  const { cartPositions, selectedPrice, warnings } = useCart();
+  const { cartPositions, selectedPrice, warnings, isInitialized, loading } =
+    useCart();
 
   const selected = useMemo(
     () => cartPositions.filter((p) => p.is_selected),
     [cartPositions],
+  );
+
+  const basePrice = useMemo(
+    () => selected.reduce((sum, p) => sum + p.dish.price.base * p.quantity, 0),
+    [selected],
   );
 
   const selectedCount = useMemo(
@@ -26,8 +32,11 @@ export function useCartPage() {
   return {
     positions: cartPositions,
     selectedPrice,
+    basePrice,
     selectedCount,
     discount,
     hasWarnings: Object.keys(warnings).length > 0,
+    isInitialized,
+    loading,
   };
 }

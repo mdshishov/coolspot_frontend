@@ -1,7 +1,14 @@
+@use "@/styles/variables" as v;
+@use "@/styles/breakpoints" as *;
+
 .main {
   display: flex;
   flex-direction: column;
   margin: 3rem 0;
+}
+
+.cartTitle {
+  margin-bottom: 2rem;
 }
 
 .messageContainer {
@@ -12,9 +19,33 @@
   }
 }
 
+.warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+  font-weight: 700;
+  margin: 2rem 2rem 0 2rem;
+  line-height: 1.2em;
+  font-weight: 700;
+  color: v.$error;
+
+  svg {
+    width: 1.4rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  span {
+    margin-top: 0.1rem;
+    flex: 1;
+    line-height: 1.2em;
+  }
+}
+
 .content {
   display: grid;
-  grid-template-columns: 1fr 30rem;
+  grid-template-columns: 2fr minmax(25rem, 1fr);
   gap: 2rem;
 }
 
@@ -24,21 +55,53 @@
   align-self: start;
 }
 
-@media (max-width: 768px) {
+.listSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  background-color: v.$bg-pr;
+  border-radius: 3rem;
+
+  .card {
+    border-bottom: 1px solid v.$bg-sc-btn;
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+@media (max-width: $tablet) {
   .main {
     margin: 2rem 0rem;
   }
   .content {
     grid-template-columns: 1fr;
   }
-  .list {
-    margin: 0 2rem;
-  }
 
   .summary {
     position: fixed;
     top: auto;
     bottom: 0;
+    left: 2rem;
+    right: 2rem;
+  }
+}
+
+@media (max-width: $mobile) {
+  .list {
+    margin: 0 2rem;
+  }
+  .cartTitle {
+    margin: 0 2rem 2rem 2rem;
+  }
+
+  .summary {
     left: 0;
     right: 0;
   }
