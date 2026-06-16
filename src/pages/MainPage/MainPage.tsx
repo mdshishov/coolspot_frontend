@@ -2,8 +2,13 @@ import { Button } from "@/shared/ui/Button/Button";
 import styles from "./MainPage.module.scss";
 import { RightLongIcon } from "@/assets/icons";
 import { Header } from "@/widgets/Header/Header";
+import { useEffect } from "react";
 
 export function MainPage() {
+  useEffect(() => {
+    document.title = "Главная | CoolSpot";
+  }, []);
+
   return (
     <>
       <Header></Header>

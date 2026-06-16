@@ -1,0 +1,33 @@
+@use "@/styles/variables" as v;
+@use "@/styles/mixins" as m;
+
+.root {
+  display: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.skeleton {
+  @include m.skeleton-bg;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: v.$bg-sc-btn;
+
+  svg {
+    height: 10rem;
+  }
+}

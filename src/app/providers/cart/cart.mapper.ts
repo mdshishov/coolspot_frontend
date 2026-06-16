@@ -1,9 +1,10 @@
-import type { CartSummary } from "@/shared/types/cart.types";
-
-export type NormalizedSummary = {
-  totalDishes: number;
-  positions: Record<number, number>;
-};
+import type {
+  CartSummary,
+  CartWarning,
+  NormalizedSetPositionResponse,
+  NormalizedSummary,
+  SetPositionResponse,
+} from "@/shared/types/cart.types";
 
 export const normalizeSummary = (data: CartSummary): NormalizedSummary => {
   const map: Record<number, number> = {};
@@ -16,4 +17,21 @@ export const normalizeSummary = (data: CartSummary): NormalizedSummary => {
     totalDishes: data.total_dishes,
     positions: map,
   };
+};
+
+export const normalizeSetResponse = (
+  data: SetPositionResponse,
+): NormalizedSetPositionResponse => {
+  const warnings: Record<number, CartWarning> = {};
+
+  const normalizedSummary = normalizeSummary(data.cart_summary);
+
+  data.warnings.forEach((warning) => {
+    const existing = warnings[warning.dish_id];
+    if (existing?.code === "dish_unavailable") return;
+
+    warnings[warning.dish_id] = { ...warning };
+  });
+
+  return { ...normalizedSummary, warnings };
 };

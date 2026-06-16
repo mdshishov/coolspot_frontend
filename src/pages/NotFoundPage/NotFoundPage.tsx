@@ -1,23 +1,33 @@
 import { useNavigate } from "react-router-dom";
 
 import styles from "./NotFoundPage.module.scss";
+import { Header } from "@/widgets/Header/Header";
+import { Button } from "@/shared/ui/Button/Button";
+import { LeftLongIcon } from "@/assets/icons";
+import { useEffect } from "react";
 
 export const NotFoundPage = () => {
+  useEffect(() => {
+    document.title = "404 | CoolSpot";
+  }, []);
+
   const navigate = useNavigate();
 
   return (
-    <main className={styles.page}>
-      <h1 className={styles.title}>404</h1>
+    <>
+      <Header />
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <h2 className={styles.title}>Не удалось найти страницу</h2>
 
-      <p className={styles.description}>Страница не найдена</p>
-
-      <button
-        type="button"
-        className={styles.button}
-        onClick={() => navigate("/")}
-      >
-        На главную
-      </button>
-    </main>
+          <Button
+            variant="primary"
+            text="На главную"
+            leftIcon={<LeftLongIcon />}
+            onClick={() => navigate("/")}
+          />
+        </div>
+      </main>
+    </>
   );
 };

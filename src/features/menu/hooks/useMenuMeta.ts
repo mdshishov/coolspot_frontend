@@ -17,16 +17,12 @@ export function useMenuMeta(): MenuMetaResult {
     const loadMeta = async () => {
       try {
         const data = await menuApi.getMeta();
-
         if (!mountedRef.current) return;
 
         setMeta(data);
         setLoading(false);
       } catch (error) {
-        if (!mountedRef.current) {
-          return;
-        }
-
+        if (!mountedRef.current) return;
         showApiError(error, showError);
       }
     };

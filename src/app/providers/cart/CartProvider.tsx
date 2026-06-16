@@ -8,8 +8,11 @@ import {
 import type { ReactNode } from "react";
 
 import { cartApi } from "./cart.api";
-import { normalizeSummary } from "./cart.mapper";
-import type { SetPositionPayload } from "@/shared/types/cart.types";
+import { normalizeSetResponse, normalizeSummary } from "./cart.mapper";
+import type {
+  CartWarning,
+  SetPositionPayload,
+} from "@/shared/types/cart.types";
 import { showApiError } from "@/shared/utils/showApiError";
 import { useToast } from "@/shared/hooks/useToast";
 import { useAuth } from "@/shared/hooks/useAuth";
@@ -17,6 +20,7 @@ import { useAuth } from "@/shared/hooks/useAuth";
 type CartContextType = {
   positions: Record<number, number>;
   totalDishes: number;
+  warnings: Record<number, CartWarning>;
   isInitialized: boolean;
 
   getProductQuantity: (dishId: number) => number;
@@ -34,6 +38,7 @@ export function CartProvider({ children }: Props) {
   const { showError } = useToast();
   const { isAuthenticated } = useAuth();
   const [positions, setPositions] = useState<Record<number, number>>({});
+  const [warnings, setWarnings] = useState<Record<number, CartWarning>>({});
   const [isInitialized, setIsInitialized] = useState(false);
 
   const refreshPositions = useCallback(async () => {
@@ -75,6 +80,7 @@ export function CartProvider({ children }: Props) {
   const setQuantity = useCallback(
     async (dishId: number, quantity: number) => {
       const previousPositions = positions;
+      const previousWarnings = warnings;
 
       setPositions((prev) => {
         const next = { ...prev };
@@ -95,10 +101,12 @@ export function CartProvider({ children }: Props) {
         };
 
         const data = await cartApi.setPosition(payload);
-        const normalizedData = normalizeSummary(data);
+        const normalizedData = normalizeSetResponse(data);
         setPositions(normalizedData.positions);
+        setWarnings(normalizedData.warnings);
       } catch (error) {
         setPositions(previousPositions);
+        setWarnings(previousWarnings);
         showApiError(error, showError);
 
         await refreshPositions();
@@ -111,6 +119,7 @@ export function CartProvider({ children }: Props) {
     () => ({
       positions,
       totalDishes,
+      warnings,
       isInitialized,
 
       getProductQuantity,
@@ -120,6 +129,7 @@ export function CartProvider({ children }: Props) {
     [
       positions,
       totalDishes,
+      warnings,
       isInitialized,
       getProductQuantity,
       setQuantity,

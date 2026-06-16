@@ -1,0 +1,50 @@
+@use "@/styles/breakpoints" as *;
+@use "@/styles/mixins" as m;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 3rem 0;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, 26rem);
+  justify-content: center;
+  gap: 1rem;
+}
+
+.skeletonTab {
+  @include m.skeleton-bg;
+  height: 4rem;
+  border-radius: 2rem;
+  width: 8rem;
+
+  &:nth-child(2n) {
+    width: 12rem;
+  }
+  &:nth-child(4n) {
+    width: 10rem;
+  }
+}
+
+@media (max-width: $mobile) {
+  .root {
+    margin: 2rem 2rem;
+  }
+
+  .tabs {
+    justify-content: flex-start;
+  }
+}

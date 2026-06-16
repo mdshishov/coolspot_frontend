@@ -1,4 +1,5 @@
 @use "./variables" as v;
+@use "sass:math";
 
 @mixin control {
   display: inline-flex;
@@ -62,4 +63,37 @@
   color: v.$text-pr;
   border: 1px solid v.$border;
   padding: 0 calc(2rem - 1px);
+}
+
+@mixin controlTab {
+  background-color: v.$bg-pr;
+  color: v.$text-pr;
+
+  &:hover {
+    color: v.$accent;
+  }
+}
+
+@mixin skeleton-bg($base: v.$bg-pr, $highlight: v.$bg-sc, $duration: 2s) {
+  background: linear-gradient(
+    90deg,
+    $base 0%,
+    $base 10%,
+    $highlight 60%,
+    $base 70%,
+    $base 100%
+  );
+
+  background-size: 48rem 100%;
+  background-position: -48rem 0;
+  animation: skeleton-loading $duration linear infinite;
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: -48rem 0;
+  }
+  to {
+    background-position: 48rem 0;
+  }
 }

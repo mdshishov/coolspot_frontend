@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import type { ToastItem, ToastType } from "@/shared/types/toast.types";
 import styles from "./Toast.module.scss";
-import { CloseSmallIcon, WarningIcon } from "@/assets/icons";
+import { CloseSmallIcon, SuccessIcon, WarningIcon } from "@/assets/icons";
 
 type Props = {
   toast: ToastItem;
@@ -12,7 +12,7 @@ type Props = {
 
 export function Toast({ toast, onClose }: Props) {
   const icons: Record<ToastType, ReactNode> = {
-    success: <WarningIcon />,
+    success: <SuccessIcon />,
     info: <WarningIcon />,
     error: <WarningIcon />,
   };

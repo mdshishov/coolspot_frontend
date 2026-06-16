@@ -25,10 +25,17 @@ export type MenuResolveResult =
 export type MenuProductsResult =
   | { status: "loading" }
   | {
-      status: "error";
-      message: string;
-    }
-  | {
       status: "success";
       products: Product[];
     };
+
+export type ProductGroup = {
+  slug: string;
+  title: string;
+  products: Product[];
+};
+
+export type MenuLink = {
+  slug: string;
+  title: string;
+};

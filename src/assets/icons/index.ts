@@ -14,3 +14,5 @@ export { Logo } from "./Logo";
 export { LoadingIcon } from "./LoadingIcon";
 export { EyeOpenIcon } from "./EyeOpenIcon";
 export { EyeClosedIcon } from "./EyeClosedIcon";
+export { SuccessIcon } from "./SuccesIcon";
+export { NoImageIcon } from "./NoImageIcon";

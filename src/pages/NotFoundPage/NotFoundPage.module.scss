@@ -1,31 +1,20 @@
-.page {
-  min-height: 100vh;
+@use "@/styles/variables" as v;
 
+.main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  gap: 16px;
-
-  text-align: center;
+  flex-grow: 1;
+  margin-top: 2rem;
 }
 
-.title {
-  margin: 0;
-
-  font-size: 96px;
-  font-weight: 700;
-}
-
-.description {
-  margin: 0;
-
-  font-size: 18px;
-}
-
-.button {
-  padding: 12px 24px;
-
-  cursor: pointer;
+.container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+  padding: 3rem;
+  text-align: left;
+  background: v.$bg-pr;
+  border-radius: 3rem;
 }

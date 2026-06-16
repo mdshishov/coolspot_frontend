@@ -1,0 +1,136 @@
+@use "@/styles/variables" as v;
+@use "@/styles/mixins" as m;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26rem;
+  border-radius: 3rem;
+  background: v.$bg-pr;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-0.4rem);
+    box-shadow: v.$shadow;
+    z-index: 100;
+  }
+}
+
+.upper {
+  padding: 2rem;
+  padding-bottom: 0;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    .title {
+      color: v.$accent;
+    }
+  }
+}
+
+.tag {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: inline-flex;
+  align-items: center;
+  height: 2rem;
+  border-radius: 1rem;
+  padding: 0 0.8rem 0.1rem 0.8rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: v.$text-bt;
+  background-color: v.$accent;
+}
+
+.image {
+  width: 22rem;
+  height: 22rem;
+  border-radius: 2rem;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.titleInfo {
+  flex-grow: 1;
+
+  .title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    hyphens: auto;
+    word-break: break-word;
+    transition: color 0.2s ease;
+  }
+  .weight {
+    color: v.$text-sc;
+    margin-top: 0.5rem;
+  }
+}
+
+.priceInfo {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .finalPrice {
+    font-weight: 700;
+    font-size: 1.8rem;
+  }
+  .discount {
+    font-weight: 700;
+    color: v.$accent;
+    margin-top: 0.5rem;
+  }
+  .basePrice {
+    color: v.$text-sc;
+    text-decoration: line-through;
+  }
+}
+
+.lower {
+  padding: 2rem;
+}
+
+.addBtn {
+  width: 100%;
+}
+
+.skeletonOverlay {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+
+  .skeleton {
+    @include m.skeleton-bg;
+  }
+
+  .skeletonInfo {
+    @include m.skeleton-bg;
+    height: 6rem;
+    border-radius: 2rem;
+  }
+
+  .skeletonBtn {
+    @include m.skeleton-bg;
+    height: 4rem;
+    border-radius: 2rem;
+  }
+}

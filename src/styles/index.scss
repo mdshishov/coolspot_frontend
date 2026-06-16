@@ -118,13 +118,14 @@ a:hover {
 }
 
 #root {
-  width: 1070px;
+  width: 1200px;
   max-width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 

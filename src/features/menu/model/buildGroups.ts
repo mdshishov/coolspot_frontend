@@ -1,6 +1,6 @@
 import type { MenuMeta } from "@/shared/types/menu.types";
 import type { Product } from "@/shared/types/product.types";
-import type { ProductGroup } from "./types";
+import type { ProductGroup } from "./menu.types";
 
 function getProductPriority(product: Product): number {
   const tags = new Set(product.tags.map((t) => t.slug));
@@ -30,6 +30,7 @@ export function buildGroups(
           title: s.title,
         })),
       );
+  orderedGroups.push({ slug: "other", title: "Другое" });
 
   const subcategoryToCategory: Record<string, string> = {};
 
@@ -52,6 +53,11 @@ export function buildGroups(
   }
 
   for (const product of products) {
+    if (!product.subcategory) {
+      groups["other"].products.push(product);
+      continue;
+    }
+
     const groupSlug = isTag
       ? subcategoryToCategory[product.subcategory.slug]
       : product.subcategory.slug;

@@ -6,7 +6,7 @@ import styles from "./Button.module.scss";
 import { LoadingIcon } from "@/assets/icons";
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary" | "border";
+  variant?: "primary" | "secondary" | "border" | "tab";
   loading?: boolean;
   text?: string;
   rightIcon?: ReactNode;

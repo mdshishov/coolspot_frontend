@@ -33,9 +33,6 @@ export function useMenuProducts(
         if (requestId !== requestIdRef.current) return;
 
         showApiError(error, showError);
-        const message =
-          "Что-то пошло не так. Пожалуйста, перезегрузите страницу или попробуйте позже.";
-        setState({ status: "error", message });
       }
     };
 
