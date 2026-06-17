@@ -50,7 +50,7 @@ export function CheckoutPage() {
             variant="primary"
             text="К моим заказам"
             rightIcon={<RightLongIcon />}
-            onClick={() => navigate("/profile/orders")}
+            onClick={() => navigate("/profile")}
           />
 
           <div className={styles.content}>

@@ -4,6 +4,7 @@ import type {
   CreateOrderPayload,
   CreateOrderResponse,
   CreateOrderError,
+  Order,
 } from "../model/order.types";
 
 export const orderApi = {
@@ -14,6 +15,12 @@ export const orderApi = {
       "/orders/create/",
       payload,
     );
+    return response.data;
+  },
+
+  async getAll(): Promise<Order[]> {
+    const response = await api.get<Order[]>("/orders/");
+
     return response.data;
   },
 };

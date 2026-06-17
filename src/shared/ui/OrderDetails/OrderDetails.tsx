@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { clsx } from "clsx";
 
 import styles from "./OrderDetails.module.scss";
@@ -42,6 +42,8 @@ const ORDER_STATUSES: Record<
 type OrderStatus = keyof typeof ORDER_STATUSES;
 
 export function OrderDetails({ order, className = "" }: Props) {
+  const [expanded, setExpanded] = useState(false);
+
   const count = useMemo(
     () =>
       order.positions.reduce(
@@ -51,16 +53,16 @@ export function OrderDetails({ order, className = "" }: Props) {
     [order.positions],
   );
 
-  const status =
-    ORDER_STATUSES[order.status as OrderStatus] ??
-    ({
-      label: order.status,
-      className: "",
-    } as const);
+  const status = ORDER_STATUSES[order.status as OrderStatus] ?? {
+    label: order.status,
+    className: "",
+  };
 
   return (
-    <section className={clsx(styles.summary, className)}>
-      <div className={styles.header}>
+    <section
+      className={clsx(styles.summary, expanded && styles.expanded, className)}
+    >
+      <button className={styles.header} onClick={() => setExpanded((v) => !v)}>
         <div className={styles.titleGroup}>
           <h3 className={styles.title}>Заказ №{order.id}</h3>
           <div className={clsx(styles.status, status.className)}>
@@ -69,42 +71,50 @@ export function OrderDetails({ order, className = "" }: Props) {
         </div>
 
         <div className={styles.subtitle}>
-          {new Date(order.created_at).toLocaleString("ru-RU")}
-          <span className={styles.dot}>•</span>
+          {new Date(order.created_at).toLocaleString("ru-RU")}  •  {""}
           {order.address}
         </div>
-      </div>
 
-      {order.comment && (
-        <div className={styles.comment}>
-          <strong>Комментарий:</strong> {order.comment}
+        <div className={styles.headerFooter}>
+          <span>Позиций: {count}</span>  •  {""}
+          <span>{order.total_price.toLocaleString("ru-RU")} ₽</span>
         </div>
-      )}
+        <span className={clsx(styles.arrow, expanded && styles.arrowExpanded)}>
+          {">"}
+        </span>
+      </button>
 
-      <div className={styles.list}>
-        {order.positions.map((position: OrderPosition, index: number) => (
-          <div key={`${position.dish_title}-${index}`} className={styles.item}>
-            <div className={styles.info}>
-              <div className={styles.name}>{position.dish_title}</div>
+      {expanded && (
+        <>
+          {order.comment && (
+            <div className={styles.comment}>
+              <strong>Комментарий:</strong> {order.comment}
+            </div>
+          )}
 
-              <div className={styles.meta}>
-                {position.quantity} ×{" "}
-                {position.dish_price.toLocaleString("ru-RU")} ₽
+          <div className={styles.list}>
+            {order.positions.map((position: OrderPosition, index) => (
+              <div
+                key={`${position.dish_title}-${index}`}
+                className={styles.item}
+              >
+                <div className={styles.info}>
+                  <div className={styles.name}>{position.dish_title}</div>
+
+                  <div className={styles.meta}>
+                    {position.quantity} ×{" "}
+                    {position.dish_price.toLocaleString("ru-RU")} ₽
+                  </div>
+                </div>
+
+                <div className={styles.price}>
+                  {position.total_price.toLocaleString("ru-RU")} ₽
+                </div>
               </div>
-            </div>
-
-            <div className={styles.price}>
-              {position.total_price.toLocaleString("ru-RU")} ₽
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      <div className={styles.footer}>
-        <span>Позиций: {count}</span>
-
-        <span>{order.total_price.toLocaleString("ru-RU")} ₽</span>
-      </div>
+        </>
+      )}
     </section>
   );
 }

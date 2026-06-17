@@ -9,7 +9,6 @@ import { useScrolled } from "@/shared/hooks/useScrolled";
 import { CartIcon, Logo, ProfileIcon } from "@/assets/icons";
 import { NavLink } from "react-router-dom";
 import { MenuIcon } from "@/assets/icons/MenuIcon";
-import { SearchIcon } from "@/assets/icons/SearchIcon";
 
 type Props = { children?: ReactNode };
 
@@ -30,9 +29,9 @@ export function Header({ children }: Props) {
     >
       <div className={styles.headerBase}>
         <nav className={clsx(styles.nav, styles.desktopNav)}>
-          <NavLink to="/" className={styles.link}>
+          {/* <NavLink to="/" className={styles.link}>
             Главная
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/menu" className={styles.link}>
             Меню
           </NavLink>
@@ -50,9 +49,9 @@ export function Header({ children }: Props) {
         </NavLink>
 
         <div className={styles.actions}>
-          <button className={styles.search}>
+          {/* <button className={styles.search}>
             <SearchIcon className={styles.icon} />
-          </button>
+          </button> */}
           {isAuthenticated && (
             <>
               <NavLink to="/cart" className={styles.link}>
@@ -78,9 +77,9 @@ export function Header({ children }: Props) {
       </div>
       {isMenuOpen && (
         <nav className={styles.mobileNav}>
-          <NavLink to="/" className={styles.link}>
+          {/* <NavLink to="/" className={styles.link}>
             Главная
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/menu" className={styles.link}>
             Меню
           </NavLink>
