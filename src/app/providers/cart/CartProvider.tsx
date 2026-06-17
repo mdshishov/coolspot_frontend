@@ -37,8 +37,9 @@ type CartContextType = {
   totalDishes: number;
   warnings: Record<number, CartWarning>;
   isInitialized: boolean;
+  isRefreshing: boolean;
+  cartDirty: boolean;
   isUpdating: boolean;
-  loading: boolean;
 
   getProductQuantity: (dishId: number) => number;
   setQuantity: (
@@ -49,6 +50,7 @@ type CartContextType = {
   setSelected: (dishId: number, selected: boolean) => Promise<void>;
   refreshPositions: () => Promise<void>;
   refreshCart: () => Promise<void>;
+  silentRefreshCart: () => Promise<void>;
 };
 
 export const CartContext = createContext<CartContextType>(
@@ -63,23 +65,29 @@ export function CartProvider({ children }: Props) {
   const [positions, setPositions] = useState<Record<number, number>>({});
   const [warnings, setWarnings] = useState<Record<number, CartWarning>>({});
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [cartDirty, setCartDirty] = useState(true);
   const [cartPositions, setCartPositions] = useState<CartPosition[]>([]);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [totalDishes, setTotalDishes] = useState(0);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated) return;
+
     setPositions({});
     setCartPositions([]);
     setWarnings({});
     setSelectedPrice(0);
     setTotalDishes(0);
+    setCartDirty(true);
+
+    setIsInitialized(true);
   }, [isAuthenticated]);
 
   const applySummary = useCallback((data: SetPositionResponse) => {
     setWarnings(normalizeWarnings(data.warnings));
+
     setTotalDishes(data.cart_summary.total_dishes);
 
     setPositions(
@@ -87,6 +95,8 @@ export function CartProvider({ children }: Props) {
         data.cart_summary.positions.map((p) => [p.dish_id, p.quantity]),
       ),
     );
+
+    setCartDirty(true);
   }, []);
 
   const getProductQuantity = useCallback(
@@ -106,24 +116,25 @@ export function CartProvider({ children }: Props) {
         data.cart.positions.map((p) => [p.dish.id, p.quantity]),
       ),
     );
+
+    setCartDirty(false);
   }, []);
 
   const refreshCart = useCallback(async () => {
-    if (!isAuthenticated) {
-      setLoading(false);
-      return;
-    }
+    if (!isAuthenticated) return;
+
+    setIsRefreshing(true);
 
     try {
-      setLoading(true);
-
       const data = await cartApi.getCart();
 
       applyCart(data);
+
+      setIsInitialized(true);
     } catch (error) {
       showApiError(error, showError);
     } finally {
-      setLoading(false);
+      setIsRefreshing(false);
     }
   }, [applyCart, isAuthenticated, showError]);
 
@@ -133,23 +144,16 @@ export function CartProvider({ children }: Props) {
       return;
     }
 
-    let mounted = true;
     const init = async () => {
       try {
-        setIsInitialized(false);
         await refreshCart();
       } finally {
-        if (mounted) {
-          setIsInitialized(true);
-        }
+        setIsInitialized(true);
       }
     };
-    init();
 
-    return () => {
-      mounted = false;
-    };
-  }, [isAuthenticated, refreshCart]);
+    init();
+  }, [isAuthenticated]);
 
   const refreshPositions = useCallback(async () => {
     await refreshCart();
@@ -201,6 +205,36 @@ export function CartProvider({ children }: Props) {
     [updatePosition],
   );
 
+  const silentRefreshCart = useCallback(async () => {
+    if (!isAuthenticated) return;
+
+    try {
+      const data = await cartApi.getCart();
+
+      const nextPositions = data.cart.positions;
+
+      setCartPositions((prev) => {
+        const changed = JSON.stringify(prev) !== JSON.stringify(nextPositions);
+
+        if (!changed) return prev;
+
+        return nextPositions;
+      });
+
+      setWarnings(normalizeWarnings(data.warnings));
+      setSelectedPrice(data.cart.selected_price);
+      setTotalDishes(data.cart.total_dishes);
+
+      setPositions(
+        Object.fromEntries(
+          data.cart.positions.map((p) => [p.dish.id, p.quantity]),
+        ),
+      );
+    } catch (error) {
+      showApiError(error, showError);
+    }
+  }, [isAuthenticated, showError]);
+
   const value = useMemo(
     () => ({
       positions,
@@ -209,14 +243,16 @@ export function CartProvider({ children }: Props) {
       totalDishes,
       warnings,
       isInitialized,
+      isRefreshing,
       isUpdating,
-      loading,
+      cartDirty,
 
       setQuantity,
       setSelected,
       getProductQuantity,
       refreshPositions,
       refreshCart,
+      silentRefreshCart,
     }),
     [
       positions,
@@ -225,14 +261,16 @@ export function CartProvider({ children }: Props) {
       totalDishes,
       warnings,
       isInitialized,
+      isRefreshing,
+      cartDirty,
       isUpdating,
-      loading,
 
       setQuantity,
       setSelected,
       getProductQuantity,
       refreshPositions,
       refreshCart,
+      silentRefreshCart,
     ],
   );
 

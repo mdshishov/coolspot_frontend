@@ -1,0 +1,141 @@
+@use "@/styles/variables" as v;
+@use "@/styles/breakpoints" as *;
+
+.summary {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 0.75rem;
+}
+
+.titleGroup {
+  display: flex;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: v.$text-sc;
+
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.dot {
+  margin: 0 0.75rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: fit-content;
+  color: v.$text-bt;
+
+  padding: 0.4rem 1rem;
+
+  border-radius: 1.2rem;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.statusNew {
+  background: v.$accent;
+}
+
+.statusCooking {
+  background: #fa6b05;
+}
+
+.statusDelivery {
+  background: #fc05b8;
+}
+
+.statusDone {
+  background: #7bf004;
+}
+
+.statusCancelled {
+  background: v.$error;
+}
+
+.comment {
+  padding: 1rem;
+
+  border-radius: 1rem;
+
+  background: v.$bg-sc;
+
+  line-height: 1.5;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1rem;
+}
+
+.item {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding-bottom: 1rem;
+
+  border-bottom: 1px solid v.$bg-sc-btn;
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.meta {
+  margin-top: 0.5rem;
+
+  color: v.$text-sc;
+}
+
+.price {
+  white-space: nowrap;
+
+  font-weight: 700;
+}
+
+.footer {
+  padding-top: 1.5rem;
+
+  border-top: 1px solid v.$bg-sc-btn;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 700;
+}

@@ -1,0 +1,86 @@
+@use "@/styles/variables" as v;
+@use "@/styles/breakpoints" as *;
+
+.main {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem 0;
+}
+
+.messageContainer {
+  margin: 0 3rem;
+
+  .messageTitle {
+    margin-bottom: 2rem;
+  }
+}
+
+.tooltip {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.toOrdersBtn {
+  max-width: fit-content;
+  margin-bottom: 2rem;
+}
+
+.orderDetails {
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: v.$accent;
+  background: none;
+  border: none;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+
+  &:hover {
+    transform: translateY(-0.2rem);
+  }
+
+  svg {
+    height: 1.4rem;
+  }
+
+  span {
+    margin-top: 0.1rem;
+    line-height: 1;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border-radius: 3rem;
+  background: v.$bg-pr;
+  gap: 3rem;
+}
+
+.inputs {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+
+  & > * {
+    flex-grow: 1;
+  }
+}
+
+@media (max-width: $mobile) {
+  .main {
+    margin: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .inputs {
+    flex-direction: column;
+  }
+}

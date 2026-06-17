@@ -18,6 +18,12 @@ export function CartPage() {
     document.title = "Корзина | CoolSpot";
   }, []);
 
+  const { silentRefreshCart } = useCart();
+
+  useEffect(() => {
+    silentRefreshCart();
+  }, []);
+
   const {
     positions,
     selectedPrice,
@@ -26,20 +32,14 @@ export function CartPage() {
     discount,
     hasWarnings,
     isInitialized,
-    loading,
+    isRefreshing,
   } = useCartPage();
   const { isAuthenticated, isInitialized: authInitialized } = useAuth();
-  const { refreshCart } = useCart();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      refreshCart();
-    }
-  }, [isAuthenticated, refreshCart]);
   const navigate = useNavigate();
   const { open } = useAuthModal();
 
-  if (!authInitialized || loading) {
+  if (!authInitialized || !isInitialized) {
     return (
       <>
         <Header />
@@ -70,7 +70,7 @@ export function CartPage() {
     );
   }
 
-  if (!loading && !positions.length) {
+  if (!positions.length && !isRefreshing) {
     return (
       <>
         <Header />

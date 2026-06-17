@@ -2,8 +2,13 @@ import { useCart } from "@/shared/hooks/useCart";
 import { useMemo } from "react";
 
 export function useCartPage() {
-  const { cartPositions, selectedPrice, warnings, isInitialized, loading } =
-    useCart();
+  const {
+    cartPositions,
+    selectedPrice,
+    warnings,
+    isInitialized,
+    isRefreshing,
+  } = useCart();
 
   const selected = useMemo(
     () => cartPositions.filter((p) => p.is_selected),
@@ -37,6 +42,6 @@ export function useCartPage() {
     discount,
     hasWarnings: Object.keys(warnings).length > 0,
     isInitialized,
-    loading,
+    isRefreshing,
   };
 }

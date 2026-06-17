@@ -33,7 +33,7 @@ export function AddToCartButton({
   const priceStr =
     price === undefined || price === null
       ? ""
-      : `  ·  ${(price * (value || 1)).toLocaleString("ru-RU")} ₽`;
+      : `  •  ${(price * (value || 1)).toLocaleString("ru-RU")} ₽`;
   const unitPriceStr = priceStr ? ` шт.${priceStr}` : "";
 
   if (value === 0)

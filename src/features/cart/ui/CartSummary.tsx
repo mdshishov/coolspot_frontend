@@ -2,6 +2,7 @@ import { useCart } from "@/shared/hooks/useCart";
 import { Button } from "@/shared/ui/Button/Button";
 
 import styles from "./CartSummary.module.scss";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   selectedPrice: number;
@@ -17,6 +18,7 @@ export function CartSummary({
   basePrice,
 }: Props) {
   const { isUpdating } = useCart();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.content}>
@@ -24,12 +26,13 @@ export function CartSummary({
         disabled={selectedCount === 0}
         loading={isUpdating}
         text="Перейти к офоромлению"
+        onClick={() => navigate("/checkout")}
       />
 
       <div>
         <div className={styles.valGroup}>
           <div>
-            Товары{"  ·  "}
+            Товары{"  •  "}
             {selectedCount} шт.
           </div>
           <div
