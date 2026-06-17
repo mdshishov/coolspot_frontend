@@ -3,7 +3,6 @@ import { clsx } from "clsx";
 
 import type { ProductImages } from "@/shared/types/product.types";
 import { NoImageIcon } from "@/assets/icons";
-import { resolveMediaUrl } from "@/shared/utils/resolveMediaUrl";
 
 import styles from "./ProductImage.module.scss";
 
@@ -55,7 +54,7 @@ export function ProductImage({
 
       <img
         ref={imgRef}
-        src={resolveMediaUrl(source.url)}
+        src={source.url}
         alt={source.alt || "Изображение товара"}
         className={styles.image}
         loading="lazy"
